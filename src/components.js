@@ -19,21 +19,31 @@ const NavBar = React.createClass({
 const Title = React.createClass({
     render: function () {
         return(
-            <div className="container">
-                <div className="row">
-                    <h1>{this.props.title}</h1>
-                </div>
-            </div>
+            <h1>{this.props.title}</h1>
         );
     }
 });
 
-ReactDOM.render(
-    <NavBar title="Teste Props" linkUrl="index.html" />,
-    document.getElementById('nav')
-);
+const Button = React.createClass({
 
-ReactDOM.render(
-    <Title title="My component title!" />,
-    document.getElementById('title')
-);
+    getInitialState: function () {
+        return {
+            click: false
+        };
+    },
+
+    toggleClick: function () {
+        this.setState({
+            click: !this.state.click
+        });
+    },
+
+
+    render: function () {
+        const btnClass = this.state.click ? 'btn btn-warning' : 'btn btn-success';
+        const title = this.state.click ? this.props.titleActive : this.props.title;
+        return (
+            <button onClick={this.toggleClick} className={btnClass}>{title}</button>
+        );
+    }
+});
