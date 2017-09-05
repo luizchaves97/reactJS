@@ -1,6 +1,16 @@
 const Page = React.createClass({
     displayName: "Page",
 
+    getInitialState: function () {
+        return {
+            data: [{ id: "1", name: "Luiz", email: "luizchaves97@gmail.com", subject: "R", message: "Minha dúvida é sobre react." }, { id: "2", name: "Isa", email: "isa@gmail.com", subject: "A", message: "Minha dúvida é sobre AngulaJS." }]
+        };
+    },
+    handleContactSubmit: function (contact) {
+        const newContact = this.state.data.concat([contact]);
+        this.setState({ data: newContact });
+    },
+
     render: function () {
         return React.createElement(
             "my-element",
@@ -12,8 +22,21 @@ const Page = React.createClass({
                 React.createElement(
                     "div",
                     { className: "row" },
-                    React.createElement(Title, { title: "My component title!" }),
-                    React.createElement(Button, { title: "Button Success", titleActive: "Button Warning" })
+                    React.createElement(
+                        Title,
+                        null,
+                        React.createElement(
+                            "p",
+                            null,
+                            "My component title!"
+                        )
+                    ),
+                    React.createElement(Form, { onContactSubmit: this.handleContactSubmit, idNumber: this.state.data.length + 1 })
+                ),
+                React.createElement(
+                    "div",
+                    { className: "row" },
+                    React.createElement(List, { data: this.state.data })
                 )
             )
         );
